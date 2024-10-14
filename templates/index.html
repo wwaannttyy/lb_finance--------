@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Финансовый советник</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body onclick="resetDeleteState()">
+
+<div class="container" id="initial-screen">
+    <h1>Настройте свой баланс</h1>
+    <label for="budget">Основной бюджет</label>
+    <input type="number" id="budget" placeholder="Введите ваш бюджет" />
+
+    <label for="last-day">Дата</label>
+    <input type="date" id="last-day" />
+
+    <div class="allowance-text">
+        Ваш дневной лимит: <span id="daily-allowance">0</span>
+    </div>
+
+    <button class="button" onclick="goToMainScreen()">ГОТОВО</button>
+</div>
+
+<div class="container main-screen" id="main-screen">
+    <h2>Доступно сегодня</h2>
+    <div id="available-amount" style="font-size: 32px; margin-bottom: 20px;">0</div>
+    <div class="available-details">Всего: <span id="total-amount">0</span> до <span id="budget-end-date">--/--/----</span></div>
+
+    <div class="button-container">
+        <button class="expense-button" onclick="openExpenseModal()">Добавить траты</button>
+        <button class="settings-button-small" onclick="openSettings()">⚙️</button>
+    </div>
+
+    <div class="expense-list" id="expense-list"></div>
+</div>
+
+<div id="expenseModal" class="modal">
+    <div class="modal-content">
+        <h2>Добавить траты</h2>
+        <input type="number" id="expense-amount" placeholder="Введите траты" />
+        <button class="button" onclick="addExpense()">Добавить</button>
+        <button class="close-button" onclick="closeExpenseModal()">Закрыть</button>
+    </div>
+</div>
+
+<div id="settingsModal" class="modal">
+    <div class="modal-content">
+        <h2>Изменить бюджет и дату</h2>
+        <label for="modal-budget">Изменить бюджет</label>
+        <input type="number" id="modal-budget" />
+
+        <label for="modal-last-day">Изменить дату</label>
+        <input type="date" id="modal-last-day" />
+
+        <div class="allowance-text">Доступно для трат сегодня: <span id="new-daily-allowance">0</span></div>
+
+        <button class="button" onclick="updateSettings()">Сохранить</button>
+        <button class="close-button" onclick="closeModal()">Выйти</button>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
